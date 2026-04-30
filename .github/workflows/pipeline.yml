@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [ "3.9", "3.10", "3.11", "3.12" ]
+        python-version: [ "3.11", "3.12", "3.13", "3.14" ]
 
     steps:
       - uses: actions/checkout@v4
@@ -19,7 +19,7 @@ jobs:
         run: python -c "import sys; print(sys.version)"
 
       - name: Install poetry
-        run: pip install poetry==1.8.2
+        run: pip install poetry==2.1.4
 
       - name: Install code
         run: poetry install
@@ -35,7 +35,7 @@ jobs:
         run: poetry run black . --check
 
       - name: Check import order with isort
-        run: poetry run isort -c spatial_kde
+        run: poetry run isort -c spatial_kde tests
 
       - name: Test with pytest
         run: poetry run pytest -v --cov spatial_kde
